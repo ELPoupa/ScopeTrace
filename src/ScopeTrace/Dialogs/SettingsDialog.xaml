@@ -1,0 +1,20 @@
+<Window x:Class="ScopeTrace.Dialogs.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Style="{StaticResource DialogWindow}" WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="16" Width="400">
+        <TextBlock Text="End of plot" FontWeight="SemiBold" Margin="0,0,0,4" />
+        <TextBlock TextWrapping="Wrap" Foreground="{StaticResource SubtleTextBrush}" Margin="0,0,0,8"
+                   Text="The scope sends no explicit end-of-plot marker, so a capture is considered complete when the line has been quiet for this long. The next Print Screen then starts a new capture." />
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Right" Width="56" TextAlignment="Right" VerticalAlignment="Center"
+                       Text="{Binding Value, ElementName=IdleSlider, StringFormat={}{0:0.0} s}" />
+            <Slider x:Name="IdleSlider" Minimum="0.5" Maximum="10" TickFrequency="0.5" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
+        </DockPanel>
+        <CheckBox x:Name="ListenOnStartupBox" Content="Start listening automatically when the app opens" Margin="0,16,0,0" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="OK" IsDefault="True" Style="{StaticResource DialogButton}" Click="Ok_Click" />
+            <Button Content="Cancel" IsCancel="True" Style="{StaticResource DialogButton}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

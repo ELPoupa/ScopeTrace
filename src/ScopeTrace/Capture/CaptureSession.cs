@@ -178,8 +178,9 @@ public sealed class CaptureSession
 
     private static bool StartsNewPlot(byte[] head)
     {
-        if (head[0] == 0x1B)
-            return true; // device-control escape: start of a fresh job
+        // A lone byte (decided by the timeout in Tick) or a device-control escape: treat it as a fresh job.
+        if (head.Length < 2 || head[0] == 0x1B)
+            return true;
         string m = new(new[] { char.ToUpperInvariant((char)head[0]), char.ToUpperInvariant((char)head[1]) });
         return m is "IN" or "DF";
     }

@@ -211,3 +211,26 @@ public class CaptureContinuationTests
         Assert.Equal(2, started.Count);
     }
 }
+
+public class CaptureStrayByteTests
+{
+    private static readonly DateTime T0 = new(2026, 1, 1, 12, 0, 0, DateTimeKind.Utc);
+
+    [Fact]
+    public void SingleStrayByteAfterAPlotDoesNotThrow()
+    {
+        var s = new CaptureSession();
+        var discarded = 0;
+        s.Discarded += _ => discarded++;
+
+        s.Feed(Encoding.ASCII.GetBytes("pd;pa1,1;"), T0);
+        s.Tick(T0.AddSeconds(5));
+        s.Feed([(byte)'x'], T0.AddSeconds(10));   // one byte, then nothing
+        s.Tick(T0.AddSeconds(10.5));               // pending byte decided by timeout
+        s.Feed([(byte)'y'], T0.AddSeconds(20));    // and once more through Feed
+        s.Tick(T0.AddSeconds(30));
+        s.Tick(T0.AddSeconds(40));
+
+        Assert.Equal(2, discarded);
+    }
+}

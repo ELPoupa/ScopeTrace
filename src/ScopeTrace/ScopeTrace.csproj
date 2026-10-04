@@ -11,7 +11,7 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <AssemblyTitle>ScopeTrace</AssemblyTitle>
     <Product>ScopeTrace</Product>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>ELPoupa</Authors>
     <Copyright>Copyright (c) 2026 ELPoupa</Copyright>
     <Description>Receives and draws HP-GL plots from HP 54600 series oscilloscopes over RS-232.</Description>
